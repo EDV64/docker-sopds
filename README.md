@@ -2,26 +2,27 @@ SOPDS home library with MySQL database
 
 # Introduction
 
-Dockerfile to build a Simple OPDS server docker image.
+Dockerfile and docker-compose files to build a Simple OPDS server docker image.
 http://www.sopds.ru
 
-# Installation
+# Installation and start
 
-Build the image yourself.
-
-```
-docker build -t edv64/sopds https://github.com/EDV64/sopds.git
-```
-
-# Quick Start
-
-Run the image
+First create file .env and fill it with variables:
 
 ```
-docker run --name sopds -d \
-   --volume /path/to/library:/books:ro \
-   --publish 8081:8001 \
-   edv64/sopds:latest
+DB_USER=<user>
+DB_NAME=<sopds>
+DB_PASS=<pass>
+DB_HOST=<db.hostname>
+PORT=8081
+LIBRARY_PATH=</library>
+HOSTNAME=<host.com>
+```
+
+Then build image and start the container:
+
+```
+sudo docker-compose up -d
 ```
 
 This will start the sopds server and you should now be able to browse the content on port 8081.

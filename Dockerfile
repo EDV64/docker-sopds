@@ -1,13 +1,8 @@
 FROM python:3.8.6-alpine
 MAINTAINER am@homembr.ru
 
-ENV DB_USER=sopds_user \
-    DB_NAME=SOPDS2 \
-    DB_PASS=12345678 \
-    DB_HOST=172.17.0.1 \
-    DB_PORT=3306 \
+ENV DB_PORT=3306 \
     EXT_DB=False \
-    PORT=62015 \
     SOPDS_ROOT_LIB="/books" \
     SOPDS_INPX_ENABLE=false \
     SOPDS_LANGUAGE=ru-RU \
@@ -40,14 +35,6 @@ ADD ./configs/settings.py /sopds/sopds/settings.py
 
 WORKDIR /sopds
 
-VOLUME /usr/src/sopds/opds_catalog/log
-
 EXPOSE $PORT
-
-LABEL "traefik.enable"="true" \
-    "traefik.http.routers.sopds.entrypoints"="https-ep" \
-    "traefik.http.routers.sopds.rule"="Host(`lib.oto-sar.ru`)" \
-    "traefik.http.routers.sopds.tls"="true" \
-    "traefik.http.routers.sopds.tls.certresolver"="letsEncrypt"
 
 ENTRYPOINT ["/start.sh"]

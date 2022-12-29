@@ -1,0 +1,28 @@
+version: "3.5"
+services:
+  sopds:
+    build: .
+    container_name: sopds
+    image: edv64/sopds
+    environment:
+      - DB_USER
+      - DB_NAME
+      - DB_PASS
+      - DB_HOST
+      - PORT
+    ports:
+      - $PORT:$PORT
+    volumes:
+      - $LIBRARY_PATH:/books:ro
+      - /var/log/sopds:/usr/src/sopds/opds_catalog/log
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sopds.entrypoints=https-ep"
+      - "traefik.http.routers.sopds.rule=Host(`$HOSTNAME`)"
+      - "traefik.http.routers.sopds.tls=true"
+      - "traefik.http.routers.sopds.tls.certResolver=letsEncrypt"
+
+networks:
+  default:
+    name: traefik_subnet
+    external: true
