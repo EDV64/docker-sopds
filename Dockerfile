@@ -44,4 +44,10 @@ VOLUME /usr/src/sopds/opds_catalog/log
 
 EXPOSE $PORT
 
+LABEL "traefik.enable"="true" \
+    "traefik.http.routers.sopds.entrypoints"="https-ep" \
+    "traefik.http.routers.sopds.rule"="Host(`lib.oto-sar.ru`)" \
+    "traefik.http.routers.sopds.tls"="true" \
+    "traefik.http.routers.sopds.tls.certresolver"="letsEncrypt"
+
 ENTRYPOINT ["/start.sh"]
