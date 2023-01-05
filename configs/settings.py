@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'sopds.wsgi.application'
 DATABASES = {    
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'SOPDS2',
+        'NAME': 'sopds',
         'HOST': '172.17.0.1',
         'USER': 'sopds_user',
         'PASSWORD' : '12345678',
