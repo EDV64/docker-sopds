@@ -18,10 +18,11 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.sopds-router.entrypoints=https-ep"
-      - "traefik.http.routers.sopds-router.rule=Host(`$HOSTNAME`)"
+      - "traefik.http.routers.sopds-router.rule=Host( `$HOSTNAME` )"
       - "traefik.http.routers.sopds-router.tls=true"
       - "traefik.http.routers.sopds-router.tls.certResolver=letsEncrypt"
       - "traefik.http.routers.sopds-router.service=sopds-service"
+      - "traefik.http.routers.sopds-router.middlewares=geoblock-middleware@file"
       - "traefik.http.services.sopds-service.loadbalancer.server.port=$PORT"
 networks:
   default:
