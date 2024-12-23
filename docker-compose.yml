@@ -4,6 +4,7 @@ services:
     build: .
     container_name: sopds
     image: edv64/sopds
+    restart: unless-stopped
     environment:
       - DB_USER
       - DB_NAME
@@ -17,14 +18,15 @@ services:
       - /var/log/sopds:/usr/src/sopds/opds_catalog/log
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.sopds-router.entrypoints=https-ep"
-      - "traefik.http.routers.sopds-router.rule=Host( `$HOSTNAME` )"
-      - "traefik.http.routers.sopds-router.tls=true"
-      - "traefik.http.routers.sopds-router.tls.certResolver=letsEncrypt"
-      - "traefik.http.routers.sopds-router.service=sopds-service"
-      - "traefik.http.routers.sopds-router.middlewares=geoblock-middleware@file"
+      - "traefik.http.routers.sopds-rt.entrypoints=https-ep"
+      - "traefik.http.routers.sopds-rt.rule=Host(`$HOSTNAME`)"
+      - "traefik.http.routers.sopds-rt.tls=true"
+#      - "traefik.http.routers.sopds-router.tls.certResolver=letsEncrypt"
+      - "traefik.http.routers.sopds-rt.service=sopds-service"
+      - "traefik.http.routers.sopds-rt.middlewares=geoblock-RU-mw@file"
       - "traefik.http.services.sopds-service.loadbalancer.server.port=$PORT"
-networks:
-  default:
-    name: traefik_subnet
-    external: true
+    network_mode: bridge
+#networks:
+#  default:
+#    name: traefik_subnet
+#    external: true
