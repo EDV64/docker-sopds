@@ -16,6 +16,7 @@ services:
     volumes:
       - $LIBRARY_PATH:/books:ro
       - /var/log/sopds:/usr/src/sopds/opds_catalog/log
+      - /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.sopds-rt.entrypoints=https-ep"

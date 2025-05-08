@@ -90,7 +90,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'sopds',
-        'HOST': '172.17.0.1',
+        'HOST': 'localhost',
         'USER': 'sopds_user',
         'PASSWORD' : '12345678',
         'OPTIONS' : {
